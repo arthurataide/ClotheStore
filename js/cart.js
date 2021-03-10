@@ -4,7 +4,10 @@ function inflateMainShoppingCart() {
   if (mainContainer == undefined) {
     return;
   }
-
+  console.log('cartItemList');
+  console.log(cartItemList);
+  mainContainer.innerHTML = '';
+  
   cartItemList.forEach((i) => {
     let product = shoppingCartProducts.filter(
       (p) => p.productId == i.productId

@@ -299,18 +299,6 @@ function handleFileSelect(evt) {
       let resourceRef = storageRef.child("pictures");
       let childRef = resourceRef.child(picStoragePath);
 
-      const picture = {
-        storagePath: picStoragePath,
-        name: f.name,
-      };
-      pictures.push(picture);
-
-      const pictureStorage = {
-        storagePath: picStoragePath,
-        base64String: window.btoa(binaryData),
-      };
-      picturesStorage.push(pictureStorage);
-
       //Storing picture on firebase storage
       console.log("picStoragePath");
       console.log(resourceRef);
@@ -322,6 +310,22 @@ function handleFileSelect(evt) {
           console.log(`Binary Data - ${window.btoa(binaryData)}`);
         })
         .then(() => {
+          childRef.getDownloadURL()
+          .then((url) => {
+
+            const picture = {
+              storagePath: picStoragePath,
+              name: f.name,
+              url: url,
+            };
+            pictures.push(picture);
+      
+            const pictureStorage = {
+              storagePath: picStoragePath,
+              base64String: window.btoa(binaryData),
+            };
+            picturesStorage.push(pictureStorage);
+          })
           console.log("showPictureName();");
           showPictureName();
         });
